@@ -10,26 +10,23 @@ services:
   - mysql
 
 before_script:
+  - cp .env.travis .env
+  - mysql -e 'create database db_laravel_test;'
   - composer self-update
   - composer install --no-interaction
   - mysql -e 'CREATE DATABASE IF NOT EXISTS db_laravel_test;'
+  - php artisan key:generate
+  php artisan migrate --seed
 
 
 script:
-  - cp .env.travis .env
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
   - vendor/bin/phpunit tests/Unit/demo.php
 
-addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
-      - mysql-client
+
 
 
 
