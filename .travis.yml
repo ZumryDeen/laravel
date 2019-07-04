@@ -4,7 +4,7 @@ os:
 language: php
 
 php:
-  - '7.3'
+  - '7.2'
 
 services:
   - mysql
@@ -21,7 +21,7 @@ before_script:
 
 script:
   - vendor/bin/phpunit tests/Unit/demo2.php
-  - vendor/bin/phpunit tests/Browser/ExampleTest.php
+
 
 
 
