@@ -29,8 +29,15 @@ class demo2 extends TestCase
             'content'=>'SecontTestContent'
 
         ]);
+
+        $third = factory(PostModel::class)->create(  [
+            'title'=>'3rd title',
+            'content'=>'3rd post'
+
+        ]);
+
         $blogCount = PostModel::all();
-        $this->assertCount(4,$blogCount);
+        $this->assertCount(3,$blogCount);
 
     }
 
@@ -38,7 +45,7 @@ class demo2 extends TestCase
     public function testPostExsist(){
 
         $posts = PostModel::all();
-        $this->assertCount(4,$posts);
+        $this->assertCount(3,$posts);
 
 
     }
@@ -52,6 +59,12 @@ class demo2 extends TestCase
         $this->assertEquals($posts->title,'firstTitle');
         $this->assertDatabaseHas('post_models',['title'=>'firstTitle']);
 
+    }
+
+    public function testDeleteBlog(){
+
+        $this->third->delete();
+        $this->assertDatabaseMissing('post_models',['title'=>'3rd title']);
     }
 
 }
