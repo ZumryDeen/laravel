@@ -61,10 +61,6 @@ class demo2 extends TestCase
 
     }
 
-    public function testDeleteBlog(){
 
-        $this->third->delete();
-        $this->assertDatabaseMissing('post_models',['title'=>'3rd title']);
-    }
 
 }

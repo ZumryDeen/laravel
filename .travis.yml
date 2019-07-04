@@ -21,6 +21,7 @@ before_script:
 
 script:
   - vendor/bin/phpunit tests/Unit/demo2.php
+  - vendor/bin/phpunit tests/Browser/ExampleTest.php
 
 
 
