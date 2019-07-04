@@ -108,8 +108,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/.travis.yml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="352">
-                  <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+                <state relative-caret-position="307">
+                  <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
                 </state>
               </provider>
             </entry>
@@ -421,7 +421,7 @@
       <workItem from="1562131116713" duration="531000" />
       <workItem from="1562151524606" duration="8659000" />
       <workItem from="1562206172636" duration="3645000" />
-      <workItem from="1562214629818" duration="7518000" />
+      <workItem from="1562214629818" duration="7832000" />
     </task>
     <task id="LOCAL-00001" summary="new travis">
       <created>1562212823054</created>
@@ -466,7 +466,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="224905000" />
+    <option name="totallyTimeSpent" value="225219000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
@@ -900,8 +900,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.travis.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="34" column="30" lean-forward="true" selection-start-line="34" selection-start-column="30" selection-end-line="34" selection-end-column="30" />
+        <state relative-caret-position="307">
+          <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
         </state>
       </provider>
     </entry>
