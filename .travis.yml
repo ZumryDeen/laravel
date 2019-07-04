@@ -12,4 +12,10 @@ before_script:
 
 
 script:
+  - cp .env.travis .env
+  - mysql -e 'create database db_laravel_test;'
+  - composer self-update
+  - composer install --no-interaction
+  - php artisan key:generate
+  - php artisan migrate
   - vendor/bin/phpunit tests/Unit/demo.php
