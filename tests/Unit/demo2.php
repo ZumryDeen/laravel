@@ -30,7 +30,28 @@ class demo2 extends TestCase
 
         ]);
         $blogCount = PostModel::all();
-        $this->assertCount(2,$blogCount);
+        $this->assertCount(4,$blogCount);
 
     }
+
+    /* Test post Exist*/
+    public function testPostExsist(){
+
+        $posts = PostModel::all();
+        $this->assertCount(4,$posts);
+
+
+    }
+
+
+    /* Test find post*/
+
+    public function testFindblog(){
+
+        $posts = PostModel::find(1);
+        $this->assertEquals($posts->title,'firstTitle');
+        $this->assertDatabaseHas('post_models',['title'=>'firstTitle']);
+
+    }
+
 }
