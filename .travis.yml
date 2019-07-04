@@ -20,7 +20,7 @@ before_script:
 
 
 script:
-  - vendor/bin/phpunit tests/Unit/demo.php
+  - vendor/bin/phpunit tests/Unit/demo2.php
 
 
 
