@@ -15,45 +15,45 @@ class Blogtest extends TestCase
      *
      * @return void
      */
-protected $first,$second,$third;
-/*    public function setUp()
-    {
+    protected $first,$second,$third;
+    /*    public function setUp()
+        {
 
-        Parent_::setUp();
-        $this->artisan('migrate:refresh');
-        $this->seed();
-        $this->first = factory(PostModel::class)->create();
-        $this->second=factory(PostModel::class)->create();
+            Parent_::setUp();
+            $this->artisan('migrate:refresh');
+            $this->seed();
+            $this->first = factory(PostModel::class)->create();
+            $this->second=factory(PostModel::class)->create();
 
 
-    }*/
+        }*/
 
 
     public function testAddblog()
     {
 
-        $first = factory(PostModel::class)->create(
+        $first = factory(PostModel::class)->save(
             [
-              'title'=>'firstTitle',
+                'title'=>'firstTitle',
                 'title'=>'firstPosttestContent'
 
             ]
         );
-        $second = factory(PostModel::class)->create(  [
+        $second = factory(PostModel::class)->save(  [
             'title'=>'SecontTestTitle',
             'title'=>'SecontTestContent'
 
         ]);
         $blogCount = PostModel::all();
-        $this->assertCount(61,$blogCount);
+        $this->assertCount(135,$blogCount);
 
     }
 
-/* Test post Exist*/
+    /* Test post Exist*/
     public function testPostExsist(){
 
         $posts = PostModel::all();
-        $this->assertCount(63,$posts);
+        $this->assertCount(138,$posts);
 
 
     }
@@ -67,9 +67,9 @@ protected $first,$second,$third;
         $blog->user_id=4;
         $blog->save();
 
-      $this->assertCount(60,PostModel::all());
+        $this->assertCount(143,PostModel::all());
 
-        
+
     }
 
     /* Test find post*/
@@ -78,7 +78,7 @@ protected $first,$second,$third;
 
         $posts = PostModel::find(24);
         $this->assertEquals($posts->title,'Debitis incidunt est velit ipsa');
-$this->assertDatabaseHas('post_models',['title'=>'Et natus dolorum quos qui quidem nobis.']);
+        $this->assertDatabaseHas('post_models',['title'=>'Et natus dolorum quos qui quidem nobis.']);
 
     }
 
@@ -87,7 +87,7 @@ $this->assertDatabaseHas('post_models',['title'=>'Et natus dolorum quos qui quid
 
     public function testDeleteBlog(){
 
-        $this->third->delete();
+        $this->second->delete();
         $this->assertDatabaseMissing('post_models',['title'=>'3rd title']);
     }
 
