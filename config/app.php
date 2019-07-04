@@ -2,6 +2,7 @@
 
 return [
 
+    // testing
     Barryvdh\Debugbar\ServiceProvider::class,
     /*
     |--------------------------------------------------------------------------
