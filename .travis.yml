@@ -13,15 +13,14 @@ before_script:
   - cp .env.travis .env
   - mysql -e 'create database db_laravel_test;'
   - composer self-update
-  - composer install --no-interaction
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS db_laravel_test;'
+  - composer install --no-interaction'
+  - php artisan config:clear
+  - php artisan cache:clear
   - php artisan key:generate
   - php artisan migrate --seed
 
 
 script:
-  - composer self-update
-  - composer install --no-interaction
   - php artisan key:generate
   - php artisan migrate
   - vendor/bin/phpunit tests/Unit/demo.php
