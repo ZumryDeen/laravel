@@ -14,15 +14,14 @@ before_script:
   - mysql -e 'create database db_laravel_test;'
   - composer self-update
   - composer install --no-interaction'
+
+
+
+script:
   - php artisan config:clear
   - php artisan cache:clear
   - php artisan key:generate
   - php artisan migrate --seed
-
-
-script:
-  - php artisan key:generate
-  - php artisan migrate
   - vendor/bin/phpunit tests/Unit/demo.php
 
 
