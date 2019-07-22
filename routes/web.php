@@ -10,6 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendWelcomeMail;
+use Carbon\Carbon;
+use App\Jobs\SendWelcomeMailJob;
+use App\Events\pushme;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
+
 Route::get( '/api/_debugbar/assets/stylesheets', '\Barryvdh\Debugbar\Controllers\AssetController@css' );
 Route::get( '/api/_debugbar/assets/javascript', '\Barryvdh\Debugbar\Controllers\AssetController@js' );
 
@@ -19,7 +28,8 @@ Route::get('welcome','PostsController@welcome');
 Route::get('/', function () {
    // return view('welcome', ['name' => 'Deeno', 'status' => ['Completed', 'pending'], 'data' => array('title' => 'Iphone6', 'discription' => 'Awsome'), 'country' => 'srilanka']);
 
-     return "hellow";
+    // phpinfo();
+    return view('welcome');
 
 });
 
@@ -33,6 +43,19 @@ Route::get('/about', function () {
 Route::get('/service', function () {
     return view('service');
 });
+
+// Gates
+Route::get('super', function () {
+
+    if(Gate::allows('sup-only',Auth::user())){
+        return view('service');
+    } else {
+        return "Your not Authorised";
+    }
+
+
+});
+
 
 // use match fucntion for check the submit mehtods Ex : post,get
 
@@ -92,6 +115,8 @@ Route::prefix('posts')->group(function () {
     });
 
 
+
+
     // 1. adding post
 
     Route::post('/add', function (\Illuminate\Http\Request $request) use($Allposts) {
@@ -130,6 +155,33 @@ Route::prefix('posts')->group(function () {
 
     });
 });
+
+
+//calling a event
+Route::get('ship', function () {
+    event(new \App\Events\OrderShipped('3','shipmentisDone'));
+});
+
+
+Route::get('push', function () {
+    event(new pushme('hello world'));
+    return "Event has been sent!";
+});
+
+Route::get('listen', function () {
+    return view('shownotification');
+});
+
+// calling  a queue
+Route::get('sendEmail', function () {
+    $job = (new SendWelcomeMailJob())
+    ->delay(Carbon::now()->addSeconds(5));
+dispatch($job);
+return "email send";
+
+});
+
+
 
 // to get auto rote add this root on web.php
 Route::resource('blog','PostCL');

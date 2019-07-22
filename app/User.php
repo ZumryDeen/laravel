@@ -11,7 +11,7 @@ class User extends Authenticatable
     use Notifiable;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','email_token',
     ];
 
     public function PostModel(){
@@ -21,7 +21,7 @@ class User extends Authenticatable
     }
 
 
-    public function ordersss(){
+    public function orders(){
 
         return $this->hasMany('App\order');
 

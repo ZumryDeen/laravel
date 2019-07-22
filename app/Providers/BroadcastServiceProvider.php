@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Pusher\Pusher;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
 

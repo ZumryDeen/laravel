@@ -26,5 +26,15 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define('sup-only' ,function ($user){
+
+
+            if($user->super==1){
+                return true;
+            } else {
+
+                return false;
+            }
+        });
     }
 }

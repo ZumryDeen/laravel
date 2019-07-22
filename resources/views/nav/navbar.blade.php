@@ -48,7 +48,10 @@
                         </li>
                     @endif
                 @else
-                    <li><a href="/home">Dashaboard</a> </li>
+                    <li><a href="/home">Dashaboard {{ Auth::user()->super }}</a> </li>
+                ||
+                    <li><a href="/super">Super</a> </li>
+
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
