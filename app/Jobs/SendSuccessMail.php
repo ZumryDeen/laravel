@@ -7,10 +7,10 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use App\Mail\SendWelcomeMail;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SuccessMailTpl;
 
-class SendWelcomeMailJob implements ShouldQueue
+class SendSuccessMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -31,6 +31,7 @@ class SendWelcomeMailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to('zumrydeen.prs@gmail.com')->send(new SendWelcomeMail());
+        $email = New SuccessMailTpl();
+        Mail::to('zumrydeen.prs@gmail.com')->send($email);
     }
 }

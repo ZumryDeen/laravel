@@ -2,13 +2,13 @@
 
 namespace App\Jobs;
 
-use App\Mail\EmailVerification;
-use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use App\Mail\EmailVerification;
 
 class SendVerificationEmail implements ShouldQueue
 {
@@ -19,13 +19,12 @@ class SendVerificationEmail implements ShouldQueue
      *
      * @return void
      */
+
     protected $user;
-
-
     public function __construct($user)
     {
-        $this->user = $user;
 
+        $this->user=$user;
     }
 
     /**
@@ -35,8 +34,8 @@ class SendVerificationEmail implements ShouldQueue
      */
     public function handle()
     {
-        $email = new EmailVerification($this->user);
-        Mail::to($this->user->email)->send($email);
 
+        $email = New EmailVerification($this->user);
+        Mail::to($this->user->email)->send($email);
     }
 }

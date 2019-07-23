@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class EmailVerification extends Mailable
+class SuccessMailTpl extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,11 +16,9 @@ class EmailVerification extends Mailable
      *
      * @return void
      */
-
-    protected $user;
-    public function __construct($user)
+    public function __construct()
     {
-        $this->user = $user;
+        //
     }
 
     /**
@@ -30,8 +28,6 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('email.emailVerficationCode')->with([
-            'email_token' => $this->user->email_token,
-        ]);
+        return $this->view('welcome');
     }
 }

@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\User;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Response;
+use App\Events\NewOrder;
+Use App\Jobs\SendVerificationEmail;
 
 class RegisterController extends Controller
 {
@@ -50,7 +57,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6|confirmed'
+
         ]);
     }
 
@@ -62,10 +70,65 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'email_token'=>base64_encode($data['email'])
         ]);
+
+        // call the user Event when register
+
+       // event (new NewOrder($user));
+/*$job = (event (new NewOrder($user)))->delay(Carbon::now()->addSeconds(5));
+        $this->dispatch($job);*/
+
+
+
+        return $user;
     }
+
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param $token
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user=$this->create($request->all())));
+
+  dispatch(new SendVerificationEmail($user));
+        return view('email.verification');
+
+    }
+
+
+    public function verify($token){
+
+        $user = User::where('email_token',$token)->first();
+        $user->verified_mail=1;
+
+        if($user->save()){
+
+            return view('email.emailconfirm',['user'=>$user]);
+
+        }
+
+    }
+
+
+
+
+
 }

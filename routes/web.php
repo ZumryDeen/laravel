@@ -14,10 +14,13 @@
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendWelcomeMail;
 use Carbon\Carbon;
+use App\Notifications\Taskcomplete;
+use App\User;
 use App\Jobs\SendWelcomeMailJob;
 use App\Events\pushme;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 
 Route::get( '/api/_debugbar/assets/stylesheets', '\Barryvdh\Debugbar\Controllers\AssetController@css' );
 Route::get( '/api/_debugbar/assets/javascript', '\Barryvdh\Debugbar\Controllers\AssetController@js' );
@@ -56,6 +59,18 @@ Route::get('super', function () {
 
 });
 
+
+// Gates with plolicy
+Route::get('GatePolicy ', function () {
+
+    if(Gate::allows('sup-only',Auth::user())){
+        return view('service');
+    } else {
+        return "Your not Authorised";
+    }
+
+
+});
 
 // use match fucntion for check the submit mehtods Ex : post,get
 
@@ -156,6 +171,40 @@ Route::prefix('posts')->group(function () {
     });
 });
 
+
+// user email verification
+Route::get('/verifyemail/{token}','Auth\RegisterController@verify');
+
+
+
+
+//call mail job
+
+Route::get('userReg', 'UserReg@processQueue');
+
+// send notification 1 user
+Route::get('notfiy', function (){
+
+    // to one user
+    User::find(1)->notify(New Taskcomplete());
+return "Task notification sent";
+
+});
+
+
+// send notification bulk  user
+Route::get('notfiybulk', function (){
+
+    // delay the mail
+    $when = now()->addMinutes(10);
+
+   // $user->notify((new InvoicePaid($invoice))->delay($when));
+    $users = User::findMany([1,2]);
+    // to one user
+    Notification::send($users, New Taskcomplete())->delay($when);
+    return "Task notification sent";
+
+});
 
 //calling a event
 Route::get('ship', function () {

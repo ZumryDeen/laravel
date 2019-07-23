@@ -50,8 +50,9 @@
                 @else
                     <li><a href="/home">Dashaboard {{ Auth::user()->super }}</a> </li>
                 ||
+                  @can('sup-only',Auth::user())
                     <li><a href="/super">Super</a> </li>
-
+@endcan
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
