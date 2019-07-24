@@ -42,6 +42,8 @@ class RemindList extends Controller
         // to one user
         //User::find(1)->notify((New Taskcomplete())->delay($when));
 
+
+
         foreach ($users as $to) {
             $to->notify((New Taskcomplete())->delay($when));
         }
@@ -57,9 +59,13 @@ class RemindList extends Controller
         // to one user
         //User::find(1)->notify((New Taskcomplete())->delay($when));
 
-        foreach ($users as $to) {
+      //die(auth()->user()->id);
+
+        auth()->user()->notify((New TaskstatusDB())->delay($when));
+
+      /*  foreach ($users as $to) {
             $to->notify((New TaskstatusDB())->delay($when));
-        }
+        }*/
 
         return "Task notification sent";
     }
