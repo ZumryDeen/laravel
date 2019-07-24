@@ -16,7 +16,9 @@ use App\Mail\SendWelcomeMail;
 use Carbon\Carbon;
 use App\Notifications\Taskcomplete;
 use App\User;
+Use App\Events\ReminderDue;
 use App\Jobs\SendWelcomeMailJob;
+Use App\Jobs\SendSuccessMail;
 use App\Events\pushme;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -186,30 +188,48 @@ Route::get('userReg', 'UserReg@processQueue');
 Route::get('notfiy', function (){
 
     // to one user
-    User::find(1)->notify(New Taskcomplete());
-return "Task notification sent";
+    User::find(1);
+
+    event(new pushme('hello world'));
+    return "Event has been sent!";
+
+});
+
+
+// call Remind mail even
+Route::get('dueremind', function (){
+
+    // to one user
+    $user = User::find(1);
+event(new ReminderDue($user));
+    return "Task notification sent";
 
 });
 
 
 // send notification bulk  user
-Route::get('notfiybulk', function (){
+Route::get('bulknotify','RemindList@NotifyMails');
 
-    // delay the mail
-    $when = now()->addMinutes(10);
 
-   // $user->notify((new InvoicePaid($invoice))->delay($when));
-    $users = User::findMany([1,2]);
-    // to one user
-    Notification::send($users, New Taskcomplete())->delay($when);
-    return "Task notification sent";
-
-});
+// send notification to table
+Route::get('notfyDb','RemindList@NotifyDB');
 
 //calling a event
 Route::get('ship', function () {
     event(new \App\Events\OrderShipped('3','shipmentisDone'));
 });
+
+// calling a Job by route
+Route::get('job', function () {
+   dispatch(new SendSuccessMail());
+    return "Job have been called and Sent to queue";
+});
+
+
+
+// calling a Job by Controller
+Route::get('dueTest','RemindList@dueRemind');
+
 
 
 Route::get('push', function () {
@@ -221,14 +241,7 @@ Route::get('listen', function () {
     return view('shownotification');
 });
 
-// calling  a queue
-Route::get('sendEmail', function () {
-    $job = (new SendWelcomeMailJob())
-    ->delay(Carbon::now()->addSeconds(5));
-dispatch($job);
-return "email send";
 
-});
 
 
 

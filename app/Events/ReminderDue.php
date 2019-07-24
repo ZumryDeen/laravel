@@ -3,19 +3,18 @@
 namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Bus\Queueable;
 
-class NewOrder implements ShouldQueue
+class ReminderDue implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $user;
     /**
      * Create a new event instance.
      *
@@ -23,7 +22,7 @@ class NewOrder implements ShouldQueue
      */
     public function __construct($user)
     {
-        $this->user = $user;
+        $this->user=$user;
     }
 
     /**
@@ -35,10 +34,4 @@ class NewOrder implements ShouldQueue
     {
         return new PrivateChannel('channel-name');
     }
-
-    public function handle()
-    {
-        $this->fire();
-    }
-
 }

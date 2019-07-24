@@ -79,6 +79,7 @@ class RegisterController extends Controller
 
         // call the user Event when register
 
+
        // event (new NewOrder($user));
 /*$job = (event (new NewOrder($user)))->delay(Carbon::now()->addSeconds(5));
         $this->dispatch($job);*/
@@ -107,6 +108,8 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         event(new Registered($user=$this->create($request->all())));
+
+
 
   dispatch(new SendVerificationEmail($user));
         return view('email.verification');

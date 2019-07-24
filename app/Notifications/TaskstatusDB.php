@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class  Taskcomplete extends Notification implements ShouldQueue
+class TaskstatusDB extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -29,7 +29,7 @@ class  Taskcomplete extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -55,7 +55,8 @@ class  Taskcomplete extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            //
+            'invoice_id' => 12,
+            'details' => 'this is my database notification',
         ];
     }
 }

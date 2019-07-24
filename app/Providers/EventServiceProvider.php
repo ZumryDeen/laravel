@@ -24,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\NewOrder' => [
             'App\Listeners\SendNeworderMail',
         ],
+        'App\Events\ReminderDue' => [
+            'App\Listeners\MailDueReminder',
+        ],
     ];
 
     /**
